@@ -1,9 +1,6 @@
 from bs4 import BeautifulSoup
-import pandas as pd
 
 from libs.html import get_html
-from libs.area import area_dict, area_list
-from libs.md5 import md5
 
 base_url = 'https://tcdata.typhoon.org.cn/dlrdqx.html'
 
@@ -68,7 +65,7 @@ def write_tropical_cyclone_list_to_db(list, connection):
         land_count INT NOT NULL,
         land_index INT NOT NULL,
         land_area VARCHAR(32) NOT NULL,
-        land_area_code INT NOT NULL,
+        land_area_code VARCHAR(32) NOT NULL,
         land_level VARCHAR(32) NOT NULL,
         INDEX idx_id (id),
         INDEX idx_series (series),
@@ -112,4 +109,4 @@ def write_tropical_cyclone_list_to_db(list, connection):
       connection.commit()
 
   finally:
-    print('write tropical cyclone list done: ')
+    print('write tropical cyclone list done')
