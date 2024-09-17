@@ -27,7 +27,7 @@ for data in data_list:
     land_area = land_area.split('-')[0]  # 先默认保留第一个，后续再进行拆分
   dict = {
     'id': md5(series + code + land_index + land_area),
-    'series': int(series),
+    'series': series,
     'code': code,
     'china_code': china_code,
     'english_name': english_name,
@@ -38,7 +38,19 @@ for data in data_list:
     'land_area_code': area_dict[land_area],
     'land_level': land_level,
   }
-  dict_list.append(dict)
+  dict_list.append([
+    dict['id'],
+    dict['series'],
+    dict['code'],
+    dict['china_code'],
+    dict['english_name'],
+    dict['chinese_name'],
+    dict['land_count'],
+    dict['land_index'],
+    dict['land_area'],
+    dict['land_area_code'],
+    dict['land_level'],
+  ])
 write_tropical_cyclone_list_to_db(dict_list, connection)
 
 connection.close()
