@@ -9,6 +9,14 @@ from libs.mysql import connection
 data_list = get_tropical_cyclone_list()
 dict_list = []
 
+# 手动补充24年数据
+data_list += [
+  ['2024', '3', '', '', '格美', '1', '1', '台湾', ''],
+  ['2024', '4', '', '', '派比安', '1', '1', '海南', ''],
+  ['2024', '11', '', '', '摩羯', '1', '1', '海南', ''],
+  ['2024', '13', '', '', '贝碧嘉', '1', '1', '上海', ''],
+]
+
 for data in data_list:
   (
     series,
@@ -38,19 +46,21 @@ for data in data_list:
     'land_area_code': area_dict[land_area],
     'land_level': land_level,
   }
-  dict_list.append([
-    dict['id'],
-    dict['series'],
-    dict['code'],
-    dict['china_code'],
-    dict['english_name'],
-    dict['chinese_name'],
-    dict['land_count'],
-    dict['land_index'],
-    dict['land_area'],
-    dict['land_area_code'],
-    dict['land_level'],
-  ])
+  dict_list.append(
+    [
+      dict['id'],
+      dict['series'],
+      dict['code'],
+      dict['china_code'],
+      dict['english_name'],
+      dict['chinese_name'],
+      dict['land_count'],
+      dict['land_index'],
+      dict['land_area'],
+      dict['land_area_code'],
+      dict['land_level'],
+    ]
+  )
 write_tropical_cyclone_list_to_db(dict_list, connection)
 
 connection.close()
