@@ -38,6 +38,7 @@ for data in data_list:
     'land_area_code': area_dict[land_area],
     'land_level': land_level,
   }
+  dict_list.append(dict)
 write_tropical_cyclone_list_to_db(dict_list, connection)
 
 connection.close()
