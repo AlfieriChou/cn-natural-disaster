@@ -51,12 +51,13 @@ def read_earthquake_xlsx(xlsx_path):
           'date': date,
           'date_timestamp': date_timestamp,
           'area_code': area_code,
+          'area': area,
           'series': str(earthquake_list[0]),
           'longitude': longitude,
           'latitude': latitude,
           'depth': int(earthquake_list[4]),
           'level': float(earthquake_list[5]),
-          'area': area_detail,
+          'area_detail': area_detail,
           'event_type': earthquake_list[7],
         }
         data_list.append([
@@ -65,12 +66,13 @@ def read_earthquake_xlsx(xlsx_path):
           dict['date'],
           dict['date_timestamp'],
           dict['area_code'],
+          dict['area'],
+          dict['area_detail'],
           dict['series'],
           dict['longitude'],
           dict['latitude'],
           dict['depth'],
           dict['level'],
-          dict['area'],
           dict['event_type'],
         ])
 
@@ -88,12 +90,13 @@ def write_earthquake_list_to_db(data_list, connection):
         date INT NOT NULL,
         date_timestamp INT NOT NULL,
         area_code VARCHAR(32) NOT NULL,
+        area VARCHAR(32) NOT NULL,
+        area_detail VARCHAR(255) NOT NULL,
         series VARCHAR(64) NOT NULL,
         longitude FLOAT NOT NULL,
         latitude FLOAT NOT NULL,
         depth INT NOT NULL,
         level FLOAT NOT NULL,
-        area VARCHAR(255) NOT NULL,
         event_type VARCHAR(32) NOT NULL,
         INDEX idx_id (id),
         INDEX idx_date (date),
@@ -118,15 +121,16 @@ def write_earthquake_list_to_db(data_list, connection):
           date,
           date_timestamp,
           area_code,
+          area,
+          area_detail,
           series,
           longitude,
           latitude,
           depth,
           level,
-          area,
           event_type
         ) VALUES (
-          %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s
+          %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s
         )
       """
 
