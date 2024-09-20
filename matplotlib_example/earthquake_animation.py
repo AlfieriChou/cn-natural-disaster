@@ -146,7 +146,6 @@ def update_fig(i):
     del ims[0]
   geos = china_w_needed_provinces['geometry']
   value = df[df['date'] == dates[i]]['value'].tolist()
-  print(geos, value)
   artist = gpd.plotting._plot_polygon_collection(ax, geos, value, cmap='Reds')
   ims.append(artist)
   # ax.text(20, 45, 'Date:\n{}'.format(dates[i]), fontsize=fontsize, horizontalalignment='center')
