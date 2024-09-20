@@ -62,7 +62,7 @@ def get_area_data_list():
       from 
         (
           select 
-            FROM_UNIXTIME(date, '%Y-%m') as month_date_str, 
+            FROM_UNIXTIME(date + 8 * 3600, '%Y年%m月') as month_date_str, 
             area 
           from 
             `earthquake`
@@ -156,7 +156,7 @@ def update_fig(i):
   ):
     ax.text(lon, lat, province, fontsize=fontsize)
   ax.set_title(
-    '{}年至{}年各省地震记录 单位：（次） {}年'.format(
+    '{}至{}各省地震记录 单位：（次） {}'.format(
       dates[0], dates[-1], dates[i]
     )
   )
