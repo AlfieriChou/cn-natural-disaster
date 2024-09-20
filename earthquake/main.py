@@ -1,3 +1,5 @@
+# https://data.earthquake.cn/datashare/report.shtml?PAGEID=earthquake_subao
+
 import pandas as pd
 import pyexcel as p
 import datetime
