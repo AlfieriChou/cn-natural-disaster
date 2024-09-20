@@ -22,3 +22,9 @@ python3 matplotlib_example/typhoon_animation.py
 ```
 python3 earthquake/main.py
 ```
+
+动画生成
+
+```
+python3 matplotlib_example/earthquake_animation.py
+```
