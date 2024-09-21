@@ -60,21 +60,23 @@ def read_earthquake_xlsx(xlsx_path):
           'area_detail': area_detail,
           'event_type': earthquake_list[7],
         }
-        data_list.append([
-          dict['id'],
-          dict['date_str'],
-          dict['date'],
-          dict['date_timestamp'],
-          dict['area_code'],
-          dict['area'],
-          dict['area_detail'],
-          dict['series'],
-          dict['longitude'],
-          dict['latitude'],
-          dict['depth'],
-          dict['level'],
-          dict['event_type'],
-        ])
+        data_list.append(
+          [
+            dict['id'],
+            dict['date_str'],
+            dict['date'],
+            dict['date_timestamp'],
+            dict['area_code'],
+            dict['area'],
+            dict['area_detail'],
+            dict['series'],
+            dict['longitude'],
+            dict['latitude'],
+            dict['depth'],
+            dict['level'],
+            dict['event_type'],
+          ]
+        )
 
   return data_list
 
