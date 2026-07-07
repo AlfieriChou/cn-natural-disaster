@@ -122,6 +122,7 @@ df0 = pd.DataFrame.from_dict(dict_list)
 connection.close()
 
 china_w_needed_provinces = china[china.name.isin(provinces)]
+nine_dash_line = china[china.name == '十段线']
 
 df = pd.DataFrame(
   {
@@ -150,6 +151,7 @@ def update_fig(i):
   geos = china_w_needed_provinces['geometry']
   value = df[df['date'] == dates[i]]['value'].tolist()
   artist = gpd.plotting._plot_polygon_collection(ax, geos, value, cmap='Reds')
+  nine_dash_line.plot(ax=ax, color='black', linestyle='--', linewidth=1.2)
 
   # 更新地图上的省份名称和其他信息
   for lon, lat, province in zip(

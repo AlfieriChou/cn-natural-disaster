@@ -105,6 +105,7 @@ df0 = pd.DataFrame.from_dict(dict_list)
 connection.close()
 
 china_w_needed_provinces = china[china.name.isin(provinces)]
+nine_dash_line = china[china.name == '十段线']
 
 df = pd.DataFrame(
   {
@@ -115,6 +116,7 @@ df = pd.DataFrame(
 )
 
 fig, ax = plt.subplots(figsize=(16, 9))
+ax_rank = fig.add_axes([0.02, 0.05, 0.18, 0.35])
 fontsize = 8
 
 ims = []
@@ -126,11 +128,13 @@ vmin, vmax = df['value'].min(), df['value'].max()
 def update_fig(i):
   if len(ims) > 0:
     del ims[0]
+  ax_rank.clear()
   geos = china_w_needed_provinces['geometry']
   value = df[df['date'] == dates[i]]['value'].tolist()
   print(geos, value)
   artist = gpd.plotting._plot_polygon_collection(ax, geos, value, cmap='Reds')
   ims.append(artist)
+  nine_dash_line.plot(ax=ax, color='black', linestyle='--', linewidth=1.2)
   # ax.text(20, 45, 'Date:\n{}'.format(dates[i]), fontsize=fontsize, horizontalalignment='center')
   for lon, lat, province in zip(
     china_w_needed_provinces.lon,
@@ -152,6 +156,27 @@ def update_fig(i):
   # fake up the array of the scalar mappable. Urgh...
   sm._A = []
   fig.colorbar(sm, cax=cax)
+  # 左下角省份排名表格（只显示次数大于0的）
+  current_df = df[df['date'] == dates[i]]
+  sorted_df = current_df[current_df['value'] > 0].sort_values(by='value', ascending=False)
+  ax_rank.clear()
+  ax_rank.set_axis_off()
+  
+  if len(sorted_df) > 0:
+    # 绘制表格
+    table_data = [[row['province'], str(row['value'])] for _, row in sorted_df.iterrows()]
+    col_labels = ['省市', '次数']
+    
+    table = ax_rank.table(
+      cellText=table_data,
+      colLabels=col_labels,
+      loc='upper center',
+      cellLoc='center',
+      colWidths=[0.5, 0.3]
+    )
+    table.auto_set_font_size(False)
+    table.set_fontsize(fontsize + 4)
+    table.scale(1, 1.5)
   return ims
 
 
